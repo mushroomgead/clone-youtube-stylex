@@ -1,29 +1,25 @@
-import * as stylex from "@stylexjs/stylex";
+import { promises as fs } from "fs";
+import VideoItem from "@/components/Video/VideoItem";
+import Tag from "@/components/Tag";
+import TagsSection from "@/app/(views)/main/TagsSection";
+import VideoListSection from "@/app/(views)/main/VideoListSection";
 
-const MEDIA_MOBILE = "@media (max-width: 700px)";
+const fetchVideoList = async () => {
+  const file = await fs.readFile(
+    process.cwd() + "/src/data/recommended-video-list.json",
+    "utf8"
+  );
+  const data = JSON.parse(file);
+  return data;
+};
 
-export default function Home() {
+export default async function Home() {
+  const videoList = await fetchVideoList();
+
   return (
     <main>
-      <h1 {...stylex.props(s.h1)}>Hello StyleX</h1>
+      <TagsSection />
+      <VideoListSection videoList={videoList} />
     </main>
   );
 }
-
-const s = stylex.create({
-  h1: {
-    fontSize: "4rem",
-    lineHeight: 1,
-    fontFamily: "system-ui, sans-serif",
-    color: "pink",
-    fontWeight: 400,
-    textAlign: "center",
-    display: "flex",
-    gap: 8,
-    whiteSpace: "nowrap",
-    flexDirection: {
-      default: "row",
-      [MEDIA_MOBILE]: "column",
-    },
-  },
-});
