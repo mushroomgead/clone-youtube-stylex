@@ -17,8 +17,14 @@ export default function VideoListSection({
 }) {
   return (
     <div {...stylex.props(s.container)}>
-      {videoList.map((item: VideoInfo) => {
-        return <VideoItem thumbnail={item.thumbnail} title={item.title} />;
+      {videoList.map((item: VideoInfo, index: number) => {
+        return (
+          <VideoItem
+            key={index}
+            thumbnail={item.thumbnail}
+            title={item.title}
+          />
+        );
       })}
     </div>
   );

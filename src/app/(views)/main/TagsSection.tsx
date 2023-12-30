@@ -17,8 +17,8 @@ const tagList = [
 export default function TagsSection() {
   return (
     <div {...stylex.props(s.container)}>
-      {tagList.map((tag: TagInfo) => {
-        return <Tag title={tag.title} />;
+      {tagList.map((tag: TagInfo, index: number) => {
+        return <Tag key={index} title={tag.title} />;
       })}
     </div>
   );
